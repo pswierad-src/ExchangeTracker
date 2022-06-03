@@ -1,5 +1,9 @@
-﻿using System.Text;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Text;
 using System.Text.Json;
+using ExchangeMongo;
+using ExchangeMongo.Documents;
+using ExchangeMongo.Extensions;
 using ExchangeShared;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
@@ -8,8 +12,14 @@ namespace ExchangeConsumer1;
 
 public class ConsumerService : IConsumerService
 {
-    private readonly string exchangeName = "ExchangeTracker"; 
-    
+    private readonly string exchangeName = "ExchangeTracker";
+    private readonly IMongoRepository<TradeDocument> _tradeDocumentRepository;
+
+    public ConsumerService(IMongoRepository<TradeDocument> tradeDocumentRepository)
+    {
+        _tradeDocumentRepository = tradeDocumentRepository;
+    }
+
     public void Run()
     {
         var factory = new ConnectionFactory() {HostName = "localhost"};
@@ -33,10 +43,12 @@ public class ConsumerService : IConsumerService
             var message = Encoding.UTF8.GetString(body);
 
             var trade = JsonSerializer.Deserialize<Trade>(message);
-    
-            Console.WriteLine($"Handled exchange {trade.ExchangeId} for {trade.Type} - {trade.ExchangedProduct}");
 
-            //Thread.Sleep(500);
+            if (!_tradeDocumentRepository.AnyAsync(x => x.Id == trade.ExchangeId).Result)
+            {
+                _tradeDocumentRepository.AddAsync(trade.ToDocument());    
+                Console.WriteLine($"Handled exchange {trade.ExchangeId} for {trade.Type} - {trade.ExchangedProduct}");
+            }
         };
         
         channel.BasicConsume(queue: queueName, autoAck: true, consumer: consumer);
