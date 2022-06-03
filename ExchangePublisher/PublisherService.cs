@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Text;
 using System.Text.Json;
 using ExchangeShared;
 using RabbitMQ.Client;
@@ -19,29 +20,33 @@ public class PublisherService : IPublisherService
     {
         var factory = new ConnectionFactory() { HostName = "localhost" };
 
-        using var connection = factory.CreateConnection();
-        using var channel = connection.CreateModel();
+        Console.WriteLine("Please specify how many publisher workers you want to initiate");
 
-        channel.ExchangeDeclare(exchange: exchangeName, type: ExchangeType.Direct);
-
-        Console.WriteLine("Press any key to start logging exchanges");
-        Console.ReadLine();
-
-        while (true)
+        if (!int.TryParse(Console.ReadLine(), result: out var numberOfWorkers))
         {
-            var trade = _tradeProvider.GenerateTrade();
-
-            var body = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(trade));
-            channel.BasicPublish(exchange: exchangeName,
-                routingKey: Enum.GetName(trade.Type),
-                basicProperties: null,
-                body: body);
-
-            Console.WriteLine($"Published {trade.Type} exchange for {trade.ExchangedProduct} on {trade.DateOfOperation}");
-            
-            //Thread.Sleep(new Random().Next(100,2000));
+            return;
         }
 
-        return;
+        Parallel.For(0, numberOfWorkers, index =>
+        {
+            using var connection = factory.CreateConnection();
+            using var channel = connection.CreateModel();
+            
+            channel.ExchangeDeclare(exchange: exchangeName, type: ExchangeType.Direct);
+            
+            while (true)
+            {
+                var trade = _tradeProvider.GenerateTrade();
+
+                var body = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(trade));
+                channel.BasicPublish(exchange: exchangeName,
+                    routingKey: Enum.GetName(trade.Type),
+                    basicProperties: null,
+                    body: body);
+
+                Console.WriteLine($"Published {trade.Type} exchange for {trade.ExchangedProduct} on {trade.DateOfOperation}. Publishing worker: {index}");
+
+            }
+        });
     }
 }
