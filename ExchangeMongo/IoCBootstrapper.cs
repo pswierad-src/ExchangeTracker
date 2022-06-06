@@ -4,7 +4,7 @@ namespace ExchangeMongo;
 
 public static class IoCBootstrapper
 {
-    public static void RegisterMongo(this IServiceCollection services)
+    public static void ConfigureMongo(this IServiceCollection services)
     {
         services.AddScoped(typeof(IMongoRepository<>), typeof(MongoRepository<>));
     }

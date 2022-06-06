@@ -10,7 +10,7 @@ var host = Host.CreateDefaultBuilder()
         services.AddTransient<IConsumerService, ConsumerService>();
         services.AddTransient<ITradeProvider, TradeProvider>();
 
-        services.RegisterMongo();
+        services.ConfigureMongo();
     }).Build();
 
 var service = ActivatorUtilities.CreateInstance<ConsumerService>(host.Services);

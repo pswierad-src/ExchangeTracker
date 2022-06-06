@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExchangeMongo", "ExchangeMo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExchangeApi", "ExchangeApi\ExchangeApi.csproj", "{68D135E9-D71F-497A-9F2B-BF52178E0E43}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExchangeRedis", "ExchangeRedis\ExchangeRedis.csproj", "{6BE42F83-9808-4E5B-B04F-EA0FA8647853}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +44,9 @@ Global
 		{68D135E9-D71F-497A-9F2B-BF52178E0E43}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{68D135E9-D71F-497A-9F2B-BF52178E0E43}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{68D135E9-D71F-497A-9F2B-BF52178E0E43}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BE42F83-9808-4E5B-B04F-EA0FA8647853}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BE42F83-9808-4E5B-B04F-EA0FA8647853}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BE42F83-9808-4E5B-B04F-EA0FA8647853}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BE42F83-9808-4E5B-B04F-EA0FA8647853}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

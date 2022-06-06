@@ -16,9 +16,16 @@ public class TradeController : ControllerBase
         _tradeService = tradeService;
     }
 
-    [HttpGet]
-    public async Task<IEnumerable<Trade>> GetMostRecentTrades([FromQuery] TradeRequest request)
+    [HttpGet("mostRecentTrades")]
+    public async Task<IEnumerable<Trade>> GetMostRecentTradesAsync([FromQuery] TradeRequest request)
     {
         return await _tradeService.GetMostRecentTrades(request);
+    }
+
+    [HttpGet("tradeLog")]
+    [ProducesResponseType(typeof(IEnumerable<TradeLogResponse>), StatusCodes.Status200OK)]
+    public async Task<IEnumerable<TradeLogResponse>> GetTradeLogAsync()
+    {
+        return await _tradeService.GetTradeLog();
     }
 }

@@ -15,6 +15,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\ExchangeMongo\ExchangeMongo.csproj" />
+      <ProjectReference Include="..\ExchangeRedis\ExchangeRedis.csproj" />
       <ProjectReference Include="..\ExchangeShared\ExchangeShared.csproj" />
     </ItemGroup>
 

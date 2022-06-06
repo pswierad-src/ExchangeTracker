@@ -1,6 +1,7 @@
 using ExchangeApi.Services;
 using ExchangeApi.Services.Interfaces;
 using ExchangeMongo;
+using ExchangeRedis;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +12,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.RegisterMongo();
+builder.Services.ConfigureMongo();
+builder.Services.ConfigureRedis(builder.Configuration);
 
 builder.Services.AddTransient<ITradeService, TradeService>();
 
