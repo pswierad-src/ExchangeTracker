@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExchangeConsumer2", "Exchan
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExchangeMongo", "ExchangeMongo\ExchangeMongo.csproj", "{50314CB8-CA6C-49EA-A024-75A1CC8B2B15}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExchangeApi", "ExchangeApi\ExchangeApi.csproj", "{68D135E9-D71F-497A-9F2B-BF52178E0E43}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{50314CB8-CA6C-49EA-A024-75A1CC8B2B15}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{50314CB8-CA6C-49EA-A024-75A1CC8B2B15}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{50314CB8-CA6C-49EA-A024-75A1CC8B2B15}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68D135E9-D71F-497A-9F2B-BF52178E0E43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68D135E9-D71F-497A-9F2B-BF52178E0E43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68D135E9-D71F-497A-9F2B-BF52178E0E43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68D135E9-D71F-497A-9F2B-BF52178E0E43}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
