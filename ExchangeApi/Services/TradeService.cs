@@ -36,7 +36,7 @@ public class TradeService : ITradeService
         return (await trades.ToListAsync()).Select(x => x.ToDomainObject());
     }
 
-    public async Task<IEnumerable<TradeLogResponse>> GetTradeLog()
+    public async Task<IEnumerable<TradeLogResponse>> GetTradeLog(int amount)
     {
         var recordKey = "ExchangeLog_" + DateTime.Now.ToString("yyyyMMdd_hhmm");
 
@@ -44,7 +44,7 @@ public class TradeService : ITradeService
 
         if (logs is null)
         {
-            logs = ( await _tradeRepository.GetQuery().ToListAsync())
+            logs = ( await _tradeRepository.GetQuery().Take(amount).ToListAsync())
                 .Select(x => new TradeLogResponse
                 {
                     ExchangeId = x.Id,

@@ -24,8 +24,8 @@ public class TradeController : ControllerBase
 
     [HttpGet("tradeLog")]
     [ProducesResponseType(typeof(IEnumerable<TradeLogResponse>), StatusCodes.Status200OK)]
-    public async Task<IEnumerable<TradeLogResponse>> GetTradeLogAsync()
+    public async Task<IEnumerable<TradeLogResponse>> GetTradeLogAsync([FromQuery] int amount = 10000)
     {
-        return await _tradeService.GetTradeLog();
+        return await _tradeService.GetTradeLog(amount);
     }
 }
